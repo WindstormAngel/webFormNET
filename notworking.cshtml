@@ -1,0 +1,34 @@
+<!--
+   This page and myJS.js were supposed to link to an .asp page to post information to a document and database.
+   The Javascript would varidate the inputs then send them with AJAX to the asp page where it could then 
+      insert them into a .txt file and dB. Following this, the .asp page would return a list of all information in the txt file
+      to the JS to update the Output table.
+
+   I could not figure out how to get a .asp page in Visual Studios, only a .aspx which did not work as I was intending.
+   As well, I felt this side of the project was getting away from me and was less .NET and more just Javascript. 
+-->
+<html>
+<head>
+    <title>Interview Program</title>
+    <script type="text/javascript" src="myJS.js"> </script>
+</head>
+<body>
+    
+    <form method = "post" action = "" >
+        Name: <br /> 
+        <input type = "text" id = "nameIn" value = "" /> <p id="nameBox"></p> <br />
+        Phone Number:<br />
+        <input type = "text" id = "phoneIn" value = "" /> <p id="phoneBox"></p> <br />
+        Email: <br />
+        <input type = "text" id = "emailIn" value = "" /> <p id="emailBox"></p> <br />
+        Username: <br />
+        <input type = "text" id = "userIn" value = "" /> <p id="userBox"></p> <br/>
+        Password: <br />
+        <input type = "text" id = "passIn" value = "" /> <p id="passBox"></p> <br /><br />
+        <input type = "button"  onclick="validate()" value="Submit"/>
+    </form >
+
+    <table id="outputTable"></table>
+     
+</body>
+</html>

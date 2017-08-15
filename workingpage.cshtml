@@ -1,0 +1,85 @@
+<html>
+<body>
+    <!--This page is a working 1 page version of the request.
+        It shows a form for the user to fill out, then sends it back to itself.
+        When Posted back, it checks that all fields are filled in, and if they are not, shows the form again.
+        When all field are filled, it writes the info to a .txt and then reads and prints that information to a table on screen.
+    -->
+    @{
+        if (IsPost)
+        {
+            /*reads in data sent to itself and adds them to text file*/
+            string name = Request["nameIn"];
+            string phone = Request["phoneIn"];
+            string email = Request["emailIn"];
+            string user = Request["userIn"];
+            string pass = Request["passIn"];
+            if ((name != "") && (phone != "") && (email != "") && (user != "") && (pass != "") )
+            {
+                var inData = name + "," + phone + "," + email + "," + user + "," + pass + Environment.NewLine;
+
+                var dataFile = Server.MapPath("~/App_Data/userInfo.txt");
+                File.AppendAllText(@dataFile, inData);
+
+                /*Reads txt file and shows inforation to user*/
+                Array userData = File.ReadAllLines(dataFile);
+                char[] delimiterChar = { ',' };
+                <table border="1px">
+                    <tr>
+                        <td>Name</td>
+                        <td>Phone Number</td>
+                        <td>Email</td>
+                        <td>Username</td>
+                        <td>Password</td>
+                    </tr>
+
+                    @foreach(string dataLine in userData)
+                    {
+                    <tr >
+                       @foreach(string dataItem in dataLine.Split(delimiterChar))
+                        {
+                            <td > @dataItem </td >
+                        }
+                    </tr >
+                    }
+                </table >
+            }
+            else
+            {
+                <h3>Please Fill in all spaces.</h3>
+                <form method="post" action="">
+                    Name: <br />
+                    <input type="text" name="nameIn" value="@name" />  <br />
+                    Phone Number:<br />
+                    <input type="text" name="phoneIn" value="@phone" />  <br />
+                    Email: <br />
+                    <input type="text" name="emailIn" value="@email" /> <br />
+                    Username: <br />
+                    <input type="text" name="userIn" value="@user" />  <br />
+                    Password: <br />
+                    <input type="text" name="passIn" value="@pass" /> <br /><br />
+                    <input type="submit" value="Submit" />
+                </form>
+
+            }
+        }
+
+        else
+        {
+            <form method="post" action="">
+                Name: <br />
+                <input type="text" name="nameIn" value="" />  <br />
+                Phone Number:<br />
+                <input type="text" name="phoneIn" value="" />  <br />
+                Email: <br />
+                <input type="text" name="emailIn" value="" /> <br />
+                Username: <br />
+                <input type="text" name="userIn" value="" />  <br />
+                Password: <br />
+                <input type="text" name="passIn" value="" /> <br /><br />
+                <input type="submit" value="Submit" />
+            </form>
+        }
+    }
+</body>
+</html>
